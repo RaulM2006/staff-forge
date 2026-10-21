@@ -1,0 +1,1 @@
+-- Initial baseline schema placeholder
