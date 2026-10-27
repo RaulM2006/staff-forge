@@ -19,42 +19,36 @@ services:
     networks:
       - staffforge-net
 
-  # -------------------------------------------------------------------
-  # Placeholder for FOUND-4: Uncomment once Backend Dockerfile is ready
-  # -------------------------------------------------------------------
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   container_name: staffforge-api
-  #   restart: unless-stopped
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/staffforge
-  #     SPRING_DATASOURCE_USERNAME: staffforge_user
-  #     SPRING_DATASOURCE_PASSWORD: staffforge_password
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
-  #   networks:
-  #     - staffforge-net
+  backend:
+   build:
+     context: ./backend
+     dockerfile: Dockerfile
+   container_name: staffforge-api
+   restart: unless-stopped
+   ports:
+     - "8080:8080"
+   environment:
+     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/staffforge
+     SPRING_DATASOURCE_USERNAME: staffforge_user
+     SPRING_DATASOURCE_PASSWORD: staffforge_password
+   depends_on:
+     postgres:
+       condition: service_healthy
+   networks:
+     - staffforge-net
 
-  # -------------------------------------------------------------------
-  # Placeholder for FOUND-4: Uncomment once Frontend Dockerfile is ready
-  # -------------------------------------------------------------------
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: staffforge-ui
-  #   restart: unless-stopped
-  #   ports:
-  #     - "4200:80"
-  #   depends_on:
-  #     - backend
-  #   networks:
-  #     - staffforge-net
+  frontend:
+   build:
+     context: ./frontend
+     dockerfile: Dockerfile
+   container_name: staffforge-ui
+   restart: unless-stopped
+   ports:
+     - "4200:80"
+   depends_on:
+     - backend
+   networks:
+     - staffforge-net
 
 volumes:
   postgres_data:
