@@ -1,0 +1,65 @@
+/* ==========================================================================
+   Global Typography Rules
+   ========================================================================== */
+
+html, body {
+  font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--sf-color-text-main);
+  background-color: var(--sf-color-surface-muted);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', 'Inter', sans-serif;
+  font-weight: 600;
+  color: var(--sf-color-text-main);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 2.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+h4 {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+}
+
+p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sf-text-muted {
+  color: var(--sf-color-text-muted);
+}
+
+.sf-text-subtle {
+  color: var(--sf-color-text-subtle);
+}
+
+.sf-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sf-color-text-muted);
+}
+
+code, kbd, samp, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875em;
+}
