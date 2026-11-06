@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  top: var(--sf-header-height, 64px);
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 25;
+  animation: fadeIn var(--sf-transition-fast, 150ms) ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

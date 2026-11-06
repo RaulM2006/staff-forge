@@ -1,0 +1,44 @@
+<aside class="sf-layout-sidebar"
+       [class.is-collapsed]="collapsed() && !isMobile()"
+       [class.is-mobile]="isMobile()"
+       [class.is-mobile-open]="isMobile() && !collapsed()">
+  <nav class="flex flex-col flex-1 py-4">
+    <!-- Primary navigation links -->
+    <div class="flex-1 space-y-1 px-3">
+      @for (item of primaryItems(); track item.route) {
+        <a [routerLink]="item.route"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: item.route === '/dashboard' }"
+           [matTooltip]="collapsed() && !isMobile() ? item.label : ''"
+           matTooltipPosition="right"
+           class="nav-item"
+           (click)="onNavItemClick()">
+          <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+          @if (!collapsed() || isMobile()) {
+            <span class="nav-label">{{ item.label }}</span>
+          }
+        </a>
+      }
+    </div>
+
+    <!-- Secondary navigation (bottom, separated by divider) -->
+    @if (secondaryItems().length > 0) {
+      <div class="border-t mx-3 my-2" style="border-color: var(--sf-color-border)"></div>
+      <div class="space-y-1 px-3 pb-2">
+        @for (item of secondaryItems(); track item.route) {
+          <a [routerLink]="item.route"
+             routerLinkActive="active"
+             [matTooltip]="collapsed() && !isMobile() ? item.label : ''"
+             matTooltipPosition="right"
+             class="nav-item"
+             (click)="onNavItemClick()">
+            <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+            @if (!collapsed() || isMobile()) {
+              <span class="nav-label">{{ item.label }}</span>
+            }
+          </a>
+        }
+      </div>
+    }
+  </nav>
+</aside>

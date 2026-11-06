@@ -1,0 +1,62 @@
+:host {
+  display: contents;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: var(--sf-radius-md, 0.5rem);
+  color: var(--sf-color-text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--sf-transition-fast, 150ms) ease;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--sf-color-surface-muted);
+    color: var(--sf-color-text-main);
+  }
+
+  &.active {
+    background-color: var(--sf-color-primary-50, #eff6ff);
+    color: var(--sf-color-primary);
+
+    .nav-icon {
+      color: var(--sf-color-primary);
+    }
+  }
+
+  .nav-icon {
+    flex-shrink: 0;
+    color: inherit;
+    transition: color var(--sf-transition-fast, 150ms) ease;
+  }
+
+  .nav-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Mobile sidebar: fixed overlay sliding in from the left */
+:host ::ng-deep .sf-layout-sidebar.is-mobile {
+  position: fixed;
+  top: var(--sf-header-height, 64px);
+  left: 0;
+  bottom: 0;
+  z-index: 30;
+  width: var(--sf-sidebar-width, 260px);
+  transform: translateX(-100%);
+  transition: transform var(--sf-transition-normal, 200ms) ease;
+  box-shadow: none;
+
+  &.is-mobile-open {
+    transform: translateX(0);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+                0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  }
+}
