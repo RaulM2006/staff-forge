@@ -1,0 +1,26 @@
+<div class="sf-layout-shell">
+  <app-navbar
+    [user]="currentUser()"
+    (toggleSidebar)="toggleSidebar()"
+    (changeRole)="onRoleChange($event)"
+    (logout)="onLogout()" />
+
+  <div class="sf-layout-body">
+    <!-- Backdrop overlay when sidebar is open on mobile -->
+    @if (isMobile() && !isSidebarCollapsed()) {
+      <div class="sidebar-backdrop" (click)="closeSidebarOnMobile()"></div>
+    }
+
+    <app-sidebar
+      [collapsed]="isSidebarCollapsed()"
+      [userRole]="currentUser()?.role ?? null"
+      [isMobile]="isMobile()"
+      (navItemClicked)="closeSidebarOnMobile()" />
+
+    <main class="sf-layout-main">
+      <div class="sf-container">
+        <router-outlet />
+      </div>
+    </main>
+  </div>
+</div>
