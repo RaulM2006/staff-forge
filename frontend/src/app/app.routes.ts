@@ -76,7 +76,7 @@ export const routes: Routes = [
         canActivate: [roleGuard],
         data: {
           title: 'Settings',
-          roles: [Role.ADMIN]
+          roles: [Role.EMPLOYEE]
         }
       }
     ]
