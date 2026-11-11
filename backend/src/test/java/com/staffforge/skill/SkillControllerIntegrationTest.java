@@ -134,7 +134,7 @@ class SkillControllerIntegrationTest {
                             .content(objectMapper.writeValueAsString(request)))
                     .andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.status", is(400)))
-                    .andExpect(jsonPath("$.details.name", notNullValue()));
+                    .andExpect(jsonPath("$.fieldErrors.name", notNullValue()));
         }
 
         @Test
