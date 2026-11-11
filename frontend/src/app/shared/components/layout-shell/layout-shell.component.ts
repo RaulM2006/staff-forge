@@ -5,7 +5,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { AuthService } from '../../../core/services/auth.service';
-import { Role } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-layout-shell',
@@ -43,11 +42,8 @@ export class LayoutShellComponent {
     }
   }
 
-  onRoleChange(role: Role): void {
-    this.authService.setMockRole(role);
-  }
-
   onLogout(): void {
     this.authService.logout();
+    // TODO: Navigate to /login when auth routes are implemented (CL-20)
   }
 }

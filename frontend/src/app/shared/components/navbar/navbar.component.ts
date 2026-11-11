@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-import { Role, User } from '../../../core/models/user.model';
+import { User } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -22,17 +22,6 @@ export class NavbarComponent {
   /** Emitted when the user clicks "Logout" in the user menu. */
   logout = output<void>();
 
-  /** Emitted when a role is selected from the quick dev role switcher. */
-  changeRole = output<Role>();
-
-  readonly availableRoles = [
-    Role.ADMIN,
-    Role.EMPLOYEE,
-    Role.PROJECT_MANAGER,
-    Role.RESOURCE_MANAGER,
-    Role.HR
-  ];
-
   userName = computed(() => {
     const u = this.user();
     return u ? `${u.firstName} ${u.lastName}` : 'Guest';
@@ -47,13 +36,9 @@ export class NavbarComponent {
   userRoleDisplay = computed(() => {
     const u = this.user();
     if (!u) return 'Not authenticated';
-    return this.formatRole(u.role);
-  });
-
-  formatRole(role: Role): string {
-    return role
+    return u.role
       .split('_')
-      .map(word => word.charAt(0) + word.slice(1).toLowerCase())
+      .map((word: string) => word.charAt(0) + word.slice(1).toLowerCase())
       .join(' ');
-  }
+  });
 }

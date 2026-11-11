@@ -127,7 +127,7 @@ class AuthControllerIntegrationTest {
                             .content(objectMapper.writeValueAsString(request)))
                     .andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.status", is(400)))
-                    .andExpect(jsonPath("$.details", notNullValue()));
+                    .andExpect(jsonPath("$.fieldErrors", notNullValue()));
         }
 
         @Test

@@ -39,33 +39,16 @@
         <mat-icon>person</mat-icon>
         <span>Profile</span>
       </button>
-
-      <!-- Dev Role Switcher -->
-      <mat-divider></mat-divider>
-      <div class="px-4 py-1.5 text-xs font-semibold uppercase tracking-wider" style="color: var(--sf-color-text-subtle)">
-        Comută Rol (Dev)
-      </div>
-      @for (r of availableRoles; track r) {
-        <button mat-menu-item (click)="changeRole.emit(r)">
-          <mat-icon style="font-size: 18px; width: 18px; height: 18px;">
-            {{ r === user()?.role ? 'check' : 'radio_button_unchecked' }}
-          </mat-icon>
-          <span [class.font-semibold]="r === user()?.role">{{ formatRole(r) }}</span>
-        </button>
-      }
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
 
       <mat-divider></mat-divider>
-      @if (user()) {
-        <button mat-menu-item (click)="logout.emit()">
-          <mat-icon>logout</mat-icon>
-          <span>Logout</span>
-        </button>
-      } @else {
-        <button mat-menu-item (click)="changeRole.emit(availableRoles[0])">
-          <mat-icon>login</mat-icon>
-          <span>Login (Dev Mock)</span>
-        </button>
-      }
+      <button mat-menu-item (click)="logout.emit()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
     </mat-menu>
   </div>
 </header>
