@@ -65,6 +65,13 @@ export const NAVIGATION_ITEMS: NavItem[] = [
 
   // ── Secondary ────────────────────────────────────────
   {
+    label: 'Profile',
+    icon: 'person',
+    route: '/profile',
+    roles: [Role.ADMIN, Role.PROJECT_MANAGER, Role.RESOURCE_MANAGER, Role.HR, Role.EMPLOYEE],
+    group: 'secondary'
+  },
+  {
     label: 'Settings',
     icon: 'settings',
     route: '/settings',

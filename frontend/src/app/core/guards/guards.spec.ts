@@ -76,4 +76,17 @@ describe('Security Guards (authGuard & roleGuard)', () => {
 
     expect(router.serializeUrl(result)).toBe('/dashboard');
   });
+
+  it('roleGuard should allow EMPLOYEE to access /profile', () => {
+    authService.setMockRole(Role.EMPLOYEE);
+    const route = {
+      data: { roles: [Role.ADMIN, Role.PROJECT_MANAGER, Role.RESOURCE_MANAGER, Role.HR, Role.EMPLOYEE] }
+    } as unknown as ActivatedRouteSnapshot;
+
+    const result = TestBed.runInInjectionContext(() =>
+      roleGuard(route, { url: '/profile' } as RouterStateSnapshot)
+    );
+
+    expect(result).toBeTrue();
+  });
 });
