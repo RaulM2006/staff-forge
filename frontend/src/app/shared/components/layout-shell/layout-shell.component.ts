@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -15,6 +15,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class LayoutShellComponent {
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
   private readonly breakpointObserver = inject(BreakpointObserver);
 
   readonly currentUser = this.authService.currentUser;
@@ -44,6 +45,6 @@ export class LayoutShellComponent {
 
   onLogout(): void {
     this.authService.logout();
-    // TODO: Navigate to /login when auth routes are implemented (CL-20)
+    this.router.navigate(['/login']);
   }
 }
