@@ -55,6 +55,13 @@ export const NAVIGATION_ITEMS: NavItem[] = [
     roles: [Role.ADMIN, Role.HR, Role.RESOURCE_MANAGER, Role.PROJECT_MANAGER],
     group: 'primary'
   },
+  {
+    label: 'Skill Catalog',
+    icon: 'category',
+    route: '/admin/skills',
+    roles: [Role.ADMIN],
+    group: 'primary'
+  },
 
   // ── Secondary ────────────────────────────────────────
   {
