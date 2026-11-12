@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LayoutShellComponent } from './shared/components/layout-shell/layout-shell.component';
 import { PlaceholderComponent } from './features/placeholder/placeholder.component';
 import { LoginComponent } from './features/auth/login/login.component';
+import { SkillCatalogComponent } from './features/skills/skill-catalog/skill-catalog.component';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { Role } from './core/models/user.model';
@@ -69,6 +70,15 @@ export const routes: Routes = [
         data: {
           title: 'Skills Matrix',
           roles: [Role.ADMIN, Role.HR, Role.RESOURCE_MANAGER, Role.PROJECT_MANAGER]
+        }
+      },
+      {
+        path: 'admin/skills',
+        component: SkillCatalogComponent,
+        canActivate: [roleGuard],
+        data: {
+          title: 'Skill Catalog',
+          roles: [Role.ADMIN]
         }
       },
       {

@@ -54,4 +54,26 @@ describe('Security Guards (authGuard & roleGuard)', () => {
 
     expect(result).toBeTrue();
   });
+
+  it('roleGuard should allow ADMIN to access /admin/skills', () => {
+    authService.setMockRole(Role.ADMIN);
+    const route = { data: { roles: [Role.ADMIN] } } as unknown as ActivatedRouteSnapshot;
+
+    const result = TestBed.runInInjectionContext(() =>
+      roleGuard(route, { url: '/admin/skills' } as RouterStateSnapshot)
+    );
+
+    expect(result).toBeTrue();
+  });
+
+  it('roleGuard should block non-admin from accessing /admin/skills and redirect to /dashboard', () => {
+    authService.setMockRole(Role.EMPLOYEE);
+    const route = { data: { roles: [Role.ADMIN] } } as unknown as ActivatedRouteSnapshot;
+
+    const result = TestBed.runInInjectionContext(() =>
+      roleGuard(route, { url: '/admin/skills' } as RouterStateSnapshot)
+    ) as UrlTree;
+
+    expect(router.serializeUrl(result)).toBe('/dashboard');
+  });
 });
