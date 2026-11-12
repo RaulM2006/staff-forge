@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LayoutShellComponent } from './shared/components/layout-shell/layout-shell.component';
 import { PlaceholderComponent } from './features/placeholder/placeholder.component';
+import { LoginComponent } from './features/auth/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { Role } from './core/models/user.model';
@@ -8,7 +9,7 @@ import { Role } from './core/models/user.model';
 export const routes: Routes = [
   {
     path: 'login',
-    component: PlaceholderComponent,
+    component: LoginComponent,
     data: { title: 'Login' }
   },
   {
