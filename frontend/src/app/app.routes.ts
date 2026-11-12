@@ -3,6 +3,7 @@ import { LayoutShellComponent } from './shared/components/layout-shell/layout-sh
 import { PlaceholderComponent } from './features/placeholder/placeholder.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { SkillCatalogComponent } from './features/skills/skill-catalog/skill-catalog.component';
+import { ProfileComponent } from './features/profile/profile.component';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { Role } from './core/models/user.model';
@@ -33,6 +34,15 @@ export const routes: Routes = [
         canActivate: [roleGuard],
         data: {
           title: 'Dashboard',
+          roles: [Role.ADMIN, Role.PROJECT_MANAGER, Role.RESOURCE_MANAGER, Role.HR, Role.EMPLOYEE]
+        }
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [roleGuard],
+        data: {
+          title: 'My Profile',
           roles: [Role.ADMIN, Role.PROJECT_MANAGER, Role.RESOURCE_MANAGER, Role.HR, Role.EMPLOYEE]
         }
       },
