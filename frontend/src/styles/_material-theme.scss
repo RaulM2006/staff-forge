@@ -1,0 +1,38 @@
+/* ==========================================================================
+   Angular Material 18 (Material 3) Theming Configuration
+   ========================================================================== */
+
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$staff-forge-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: (
+    brand-family: 'Roboto, Inter, sans-serif',
+    plain-family: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+:root {
+  @include mat.all-component-themes($staff-forge-theme);
+  @include mat.system-level-colors($staff-forge-theme);
+  @include mat.system-level-typography($staff-forge-theme);
+}
+
+/* Material & Tailwind Compatibility Tweaks */
+.mat-mdc-button-base {
+  /* Ensure Tailwind preflight does not clear font-family inheritance */
+  font-family: inherit;
+}
+
+.mat-icon {
+  user-select: none;
+}

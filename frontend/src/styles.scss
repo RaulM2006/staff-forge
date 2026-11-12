@@ -1,0 +1,14 @@
+/* ==========================================================================
+   StaffForge Global Stylesheet (Tailwind CSS + Angular Material 18)
+   ========================================================================== */
+
+/* 1. Sass @use imports must be at the top */
+@use 'styles/variables';
+@use 'styles/material-theme';
+@use 'styles/typography';
+@use 'styles/layout';
+
+/* 2. Tailwind Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

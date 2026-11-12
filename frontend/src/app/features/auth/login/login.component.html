@@ -1,0 +1,165 @@
+<main class="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <!-- Brand Header -->
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-blue-800 text-white shadow-md mb-3">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      </div>
+      <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">StaffForge</h1>
+      <p class="mt-2 text-sm text-slate-600">
+        Enterprise Resource & Staffing Allocation
+      </p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="bg-white py-8 px-6 sm:px-10 shadow-lg rounded-2xl border border-slate-200">
+      <h2 class="text-xl font-semibold text-slate-800 mb-6">Sign in to your account</h2>
+
+      <!-- Global Error Alert -->
+      <div
+        *ngIf="errorMessage() as error"
+        class="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 flex items-start gap-3"
+        role="alert"
+        aria-live="assertive"
+      >
+        <svg class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+            clip-rule="evenodd" />
+        </svg>
+        <div class="text-sm font-medium">{{ error }}</div>
+      </div>
+
+      <!-- Reactive Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate class="space-y-5">
+        <!-- Email Field -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-slate-700 mb-1">
+            Email address <span class="text-red-500">*</span>
+          </label>
+          <div class="relative">
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              autocomplete="email"
+              placeholder="name@staffforge.dev"
+              [attr.aria-invalid]="email?.invalid && (email?.dirty || email?.touched)"
+              [attr.aria-describedby]="email?.invalid && (email?.dirty || email?.touched) ? 'email-error' : null"
+              class="block w-full px-3.5 py-2.5 rounded-lg border text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition text-sm"
+              [ngClass]="{
+                'border-red-500 focus:ring-red-500': email?.invalid && (email?.dirty || email?.touched),
+                'border-slate-300': !(email?.invalid && (email?.dirty || email?.touched))
+              }"
+            />
+          </div>
+
+          <!-- Email Validation Feedback -->
+          <div
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+            id="email-error"
+            class="mt-1.5 text-xs text-red-600 flex items-center gap-1"
+            role="alert"
+          >
+            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd" />
+            </svg>
+            <span *ngIf="email?.errors?.['required']">Email address is required.</span>
+            <span *ngIf="email?.errors?.['email']">Please enter a valid email address.</span>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-slate-700 mb-1">
+            Password <span class="text-red-500">*</span>
+          </label>
+          <div class="relative">
+            <input
+              id="password"
+              [type]="hidePassword() ? 'password' : 'text'"
+              formControlName="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              [attr.aria-invalid]="password?.invalid && (password?.dirty || password?.touched)"
+              [attr.aria-describedby]="password?.invalid && (password?.dirty || password?.touched) ? 'password-error' : null"
+              class="block w-full px-3.5 py-2.5 pr-11 rounded-lg border text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition text-sm"
+              [ngClass]="{
+                'border-red-500 focus:ring-red-500': password?.invalid && (password?.dirty || password?.touched),
+                'border-slate-300': !(password?.invalid && (password?.dirty || password?.touched))
+              }"
+            />
+            <button
+              type="button"
+              (click)="togglePasswordVisibility()"
+              class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
+              [attr.aria-label]="hidePassword() ? 'Show password' : 'Hide password'"
+            >
+              <!-- Eye icon (show) -->
+              <svg *ngIf="hidePassword()" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <!-- Eye-off icon (hide) -->
+              <svg *ngIf="!hidePassword()" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Password Validation Feedback -->
+          <div
+            *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+            id="password-error"
+            class="mt-1.5 text-xs text-red-600 flex items-center gap-1"
+            role="alert"
+          >
+            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd" />
+            </svg>
+            <span *ngIf="password?.errors?.['required']">Password is required.</span>
+            <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters.</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2">
+          <button
+            type="submit"
+            [disabled]="isLoading()"
+            class="w-full flex justify-center items-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-800 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 disabled:opacity-60 disabled:cursor-not-allowed transition duration-150"
+          >
+            <!-- Loading Spinner -->
+            <svg
+              *ngIf="isLoading()"
+              class="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
+            </svg>
+            <span>{{ isLoading() ? 'Signing in...' : 'Sign In' }}</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Footer Info -->
+      <div class="mt-6 text-center text-xs text-slate-500">
+        Need access? Contact your system administrator or HR department.
+      </div>
+    </div>
+  </div>
+</main>
